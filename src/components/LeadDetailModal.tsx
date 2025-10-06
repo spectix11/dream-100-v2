@@ -60,12 +60,15 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
     dm_2: 'not_sent',
     dm_3: 'not_sent'
   });
-  
+
   // Toggle states - NO RELATION to message fields
   const [connectionRequestSent, setConnectionRequestSent] = useState(false);
   const [connectionAccepted, setConnectionAccepted] = useState(false);
   const [dm1Sent, setDm1Sent] = useState(false);
+  const [dm2Sent, setDm2Sent] = useState(false);
+  const [dm3Sent, setDm3Sent] = useState(false);
   const [bookedMeeting, setBookedMeeting] = useState(false);
+  const [currentLeadId, setCurrentLeadId] = useState<string | null>(null);
 
   const {
     register,
@@ -78,6 +81,8 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
 
   useEffect(() => {
     if (lead) {
+      const isNewLead = currentLeadId !== lead.process_id;
+
       reset({
         lead_name: lead.lead_name || '',
         lead_company_name: lead.lead_company_name || '',
@@ -92,8 +97,15 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
         connection_request_message: lead.connection_request_message || '',
       });
 
-      // Initialize toggle states - NO RELATION to message fields
-      setConnectionRequestSent(false); // This is just a UI toggle for tracking
+      // Only reset UI-only toggles when switching to a different lead
+      if (isNewLead) {
+        setCurrentLeadId(lead.process_id);
+        setConnectionRequestSent(false);
+        setDm2Sent(false);
+        setDm3Sent(false);
+      }
+
+      // Always sync database-backed toggles
       setConnectionAccepted(!!lead.connection_accepted_status);
       setDm1Sent(!!lead.dm_1sent);
       setBookedMeeting(!!lead.booked_meeting);
@@ -106,7 +118,7 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
         dm_3: 'not_sent'
       });
     }
-  }, [lead, reset]);
+  }, [lead, reset, currentLeadId]);
 
   const handleToggleUpdate = async (field: string, newValue: boolean) => {
     if (!lead) return;
@@ -152,13 +164,17 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
           setDm1Sent(newValue);
           break;
 
-        case 'dm_2':
-          updates.dm_2 = newValue ? null : 'DM2 sent';
-          break;
+        case 'dm_2sent':
+          // This is just a UI toggle - doesn't update database
+          setDm2Sent(newValue);
+          setLoading(false);
+          return;
 
-        case 'dm_3':
-          updates.dm_3 = newValue ? null : 'DM3 sent';
-          break;
+        case 'dm_3sent':
+          // This is just a UI toggle - doesn't update database
+          setDm3Sent(newValue);
+          setLoading(false);
+          return;
 
         case 'booked_meeting':
           updates.booked_meeting = newValue;
@@ -568,15 +584,15 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                     <div className="flex items-center justify-between">
                       <span className="text-text font-medium">DM2 Sent</span>
                       <button
-                        onClick={() => handleToggleUpdate('dm_2', !!lead?.dm_2)}
+                        onClick={() => handleToggleUpdate('dm_2sent', !dm2Sent)}
                         disabled={loading || !dm1Sent}
                         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                          !!lead?.dm_2 ? 'bg-accent-red' : 'bg-gray-600'
+                          dm2Sent ? 'bg-accent-red' : 'bg-gray-600'
                         } ${(loading || !dm1Sent) ? 'opacity-50 cursor-not-allowed' : ''}`}
                       >
                         <span
                           className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                            !!lead?.dm_2 ? 'translate-x-6' : 'translate-x-1'
+                            dm2Sent ? 'translate-x-6' : 'translate-x-1'
                           }`}
                         />
                       </button>
@@ -585,15 +601,15 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                     <div className="flex items-center justify-between">
                       <span className="text-text font-medium">DM3 Sent</span>
                       <button
-                        onClick={() => handleToggleUpdate('dm_3', !!lead?.dm_3)}
-                        disabled={loading || !lead?.dm_2}
+                        onClick={() => handleToggleUpdate('dm_3sent', !dm3Sent)}
+                        disabled={loading || !dm2Sent}
                         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                          !!lead?.dm_3 ? 'bg-accent-red' : 'bg-gray-600'
-                        } ${(loading || !lead?.dm_2) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                          dm3Sent ? 'bg-accent-red' : 'bg-gray-600'
+                        } ${(loading || !dm2Sent) ? 'opacity-50 cursor-not-allowed' : ''}`}
                       >
                         <span
                           className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                            !!lead?.dm_3 ? 'translate-x-6' : 'translate-x-1'
+                            dm3Sent ? 'translate-x-6' : 'translate-x-1'
                           }`}
                         />
                       </button>
