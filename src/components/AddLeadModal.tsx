@@ -9,7 +9,7 @@ import { leadSchema, LeadFormData } from '../lib/validations';
 // Webhook function to trigger n8n workflow
 const triggerWebhook = async (leadData: any) => {
   try {
-    const webhookUrl = 'https://aigrowthcreators.app.n8n.cloud/webhook/55ee5a00-20b2-4f43-8fab-04f5840de655';
+    const webhookUrl = 'https://aigrowthcreators.app.n8n.cloud/webhook-test/55ee5a00-20b2-4f43-8fab-04f5840de655';
     
     const response = await fetch(webhookUrl, {
       method: 'POST',
