@@ -217,13 +217,13 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
   // Helper function to parse JSON messages
   const parseMessageContent = (messageData: string | null) => {
     if (!messageData) return null;
-    
+
     try {
       // If it's already parsed JSON
       if (typeof messageData === 'object') {
         return messageData;
       }
-      
+
       // Try to parse as JSON
       const parsed = JSON.parse(messageData);
       return parsed;
@@ -231,6 +231,22 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
       // If not JSON, return as plain text
       return { default: messageData };
     }
+  };
+
+  // Helper function to render message value (handles strings and objects)
+  const renderMessageValue = (value: any): string => {
+    if (typeof value === 'string') {
+      return value;
+    }
+    if (typeof value === 'object' && value !== null) {
+      // If it's an object with a 'message' property, return that
+      if (value.message) {
+        return value.message;
+      }
+      // Otherwise, stringify it
+      return JSON.stringify(value, null, 2);
+    }
+    return String(value);
   };
 
   // Helper function to get message variant label
@@ -735,14 +751,14 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                               </div>
                               <div className="flex items-center gap-2">
                                 <button
-                                  onClick={() => copyToClipboard(value as string, `DM1 - ${getVariantLabel(key)}`)}
+                                  onClick={() => copyToClipboard(renderMessageValue(value), `DM1 - ${getVariantLabel(key)}`)}
                                   className="p-2 text-muted hover:text-text hover:bg-white/5 rounded-lg transition-colors"
                                   title="Copy message"
                                 >
                                   <Copy className="h-4 w-4" />
                                 </button>
                                 <button
-                                  onClick={() => handleEditMessage(`dm_1_${key}`, value as string)}
+                                  onClick={() => handleEditMessage(`dm_1_${key}`, renderMessageValue(value))}
                                   className="p-2 text-muted hover:text-text hover:bg-white/5 rounded-lg transition-colors"
                                   title="Edit message"
                                 >
@@ -750,7 +766,7 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                                 </button>
                               </div>
                             </div>
-                            
+
                             {editingMessage === `dm_1_${key}` ? (
                               <div className="space-y-4">
                                 <textarea
@@ -780,7 +796,7 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                             ) : (
                               <div className="bg-elevated border border-white/10 rounded-lg p-4">
                                 <div className="text-text whitespace-pre-wrap leading-relaxed text-sm break-words">
-                                  {value as string}
+                                  {renderMessageValue(value)}
                                 </div>
                               </div>
                             )}
@@ -834,14 +850,14 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                               </div>
                               <div className="flex items-center gap-2">
                                 <button
-                                  onClick={() => copyToClipboard(value as string, `DM2 - ${getVariantLabel(key)}`)}
+                                  onClick={() => copyToClipboard(renderMessageValue(value), `DM2 - ${getVariantLabel(key)}`)}
                                   className="p-2 text-muted hover:text-text hover:bg-white/5 rounded-lg transition-colors"
                                   title="Copy message"
                                 >
                                   <Copy className="h-4 w-4" />
                                 </button>
                                 <button
-                                  onClick={() => handleEditMessage(`dm_2_${key}`, value as string)}
+                                  onClick={() => handleEditMessage(`dm_2_${key}`, renderMessageValue(value))}
                                   className="p-2 text-muted hover:text-text hover:bg-white/5 rounded-lg transition-colors"
                                   title="Edit message"
                                 >
@@ -849,7 +865,7 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                                 </button>
                               </div>
                             </div>
-                            
+
                             {editingMessage === `dm_2_${key}` ? (
                               <div className="space-y-4">
                                 <textarea
@@ -879,7 +895,7 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                             ) : (
                               <div className="bg-elevated border border-white/10 rounded-lg p-4">
                                 <div className="text-text whitespace-pre-wrap leading-relaxed text-sm break-words">
-                                  {value as string}
+                                  {renderMessageValue(value)}
                                 </div>
                               </div>
                             )}
@@ -933,14 +949,14 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                               </div>
                               <div className="flex items-center gap-2">
                                 <button
-                                  onClick={() => copyToClipboard(value as string, `DM3 - ${getVariantLabel(key)}`)}
+                                  onClick={() => copyToClipboard(renderMessageValue(value), `DM3 - ${getVariantLabel(key)}`)}
                                   className="p-2 text-muted hover:text-text hover:bg-white/5 rounded-lg transition-colors"
                                   title="Copy message"
                                 >
                                   <Copy className="h-4 w-4" />
                                 </button>
                                 <button
-                                  onClick={() => handleEditMessage(`dm_3_${key}`, value as string)}
+                                  onClick={() => handleEditMessage(`dm_3_${key}`, renderMessageValue(value))}
                                   className="p-2 text-muted hover:text-text hover:bg-white/5 rounded-lg transition-colors"
                                   title="Edit message"
                                 >
@@ -948,7 +964,7 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                                 </button>
                               </div>
                             </div>
-                            
+
                             {editingMessage === `dm_3_${key}` ? (
                               <div className="space-y-4">
                                 <textarea
@@ -978,7 +994,7 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                             ) : (
                               <div className="bg-elevated border border-white/10 rounded-lg p-4">
                                 <div className="text-text whitespace-pre-wrap leading-relaxed text-sm break-words">
-                                  {value as string}
+                                  {renderMessageValue(value)}
                                 </div>
                               </div>
                             )}
