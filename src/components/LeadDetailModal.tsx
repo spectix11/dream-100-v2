@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, User, Building, Mail, Phone, Globe, Briefcase, MessageSquare, Calendar, Clock, CheckCircle2, AlertCircle, Copy, Edit3, Save, XCircle } from 'lucide-react';
+import { X, User, Building, Mail, Phone, Globe, Briefcase, MessageSquare, Calendar, Clock, CheckCircle2, AlertCircle, Copy, CreditCard as Edit3, Save, XCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-hot-toast';
