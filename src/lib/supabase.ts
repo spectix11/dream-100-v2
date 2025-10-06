@@ -28,7 +28,6 @@ export type Lead = {
   created_at: string | null;
   updated_at: string | null;
   connection_accepted_status: boolean | null;
-  connection_accepted_status: boolean | null;
   dm_1: string | null;
   dm_2: string | null;
   dm_3: string | null;
@@ -36,5 +35,8 @@ export type Lead = {
   booked_meeting: boolean | null;
   industry: string | null;
   job_title: string | null;
+  connection_request_sent: boolean | null;
   dm_1sent: boolean | null;
+  dm_2sent: boolean | null;
+  dm_3sent: boolean | null;
 };

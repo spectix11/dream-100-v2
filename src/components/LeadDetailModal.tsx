@@ -97,17 +97,17 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
         connection_request_message: lead.connection_request_message || '',
       });
 
-      // Only reset UI-only toggles when switching to a different lead
+      // Update current lead ID
       if (isNewLead) {
         setCurrentLeadId(lead.process_id);
-        setConnectionRequestSent(false);
-        setDm2Sent(false);
-        setDm3Sent(false);
       }
 
-      // Always sync database-backed toggles
+      // Always sync all toggles from database
+      setConnectionRequestSent(!!lead.connection_request_sent);
       setConnectionAccepted(!!lead.connection_accepted_status);
       setDm1Sent(!!lead.dm_1sent);
+      setDm2Sent(!!lead.dm_2sent);
+      setDm3Sent(!!lead.dm_3sent);
       setBookedMeeting(!!lead.booked_meeting);
 
       // Initialize message statuses
@@ -129,19 +129,14 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
 
       switch (field) {
         case 'connection_request_sent':
-          // This toggle has NO database field and NO relation to connection_request_message - it's just for UI tracking
+          updates.connection_request_sent = newValue;
           setConnectionRequestSent(newValue);
-          setLoading(false);
-          return;
-
-        case 'connection_request_message':
-          updates.connection_request_message = newValue ? 'Connection request sent' : null;
           break;
 
         case 'connection_accepted_status':
           updates.connection_accepted_status = newValue;
           setConnectionAccepted(newValue);
-          
+
           // Trigger webhook when connection is accepted
           if (newValue) {
             await triggerConnectionWebhook({
@@ -154,7 +149,6 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
           break;
 
         case 'dm_1sent':
-          // This updates dm_1sent and dm1_timestamp - NO relation to dm_1 message field
           updates.dm_1sent = newValue;
           if (newValue) {
             updates.dm1_timestamp = new Date().toISOString();
@@ -165,16 +159,14 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
           break;
 
         case 'dm_2sent':
-          // This is just a UI toggle - doesn't update database
+          updates.dm_2sent = newValue;
           setDm2Sent(newValue);
-          setLoading(false);
-          return;
+          break;
 
         case 'dm_3sent':
-          // This is just a UI toggle - doesn't update database
+          updates.dm_3sent = newValue;
           setDm3Sent(newValue);
-          setLoading(false);
-          return;
+          break;
 
         case 'booked_meeting':
           updates.booked_meeting = newValue;
