@@ -8,10 +8,6 @@ export const leadSchema = z.object({
   job_title: z.string().optional(),
   industry: z.string().optional(),
   lead_linkedin_url: z.string().url('LinkedIn URL is required and must be valid'),
-  lead_company_linkedin_url: z.string().url('Invalid company LinkedIn URL').optional().or(z.literal('')),
-  company_website: z.string().url('Invalid website URL').optional().or(z.literal('')),
-  potential_services: z.string().optional(),
-  connection_request_message: z.string().optional(),
 });
 
 export type LeadFormData = z.infer<typeof leadSchema>;

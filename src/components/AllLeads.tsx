@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLeads } from '../hooks/useLeads';
 import { toast } from 'react-hot-toast';
-import AddLeadModal from './AddLeadModal';
 import LeadDetailModal from './LeadDetailModal';
 import { 
   Search, 
@@ -12,10 +11,13 @@ import {
   Linkedin
 } from 'lucide-react';
 
-const AllLeads: React.FC = () => {
+interface AllLeadsProps {
+  onOpenAddModal: () => void;
+}
+
+const AllLeads: React.FC<AllLeadsProps> = ({ onOpenAddModal }) => {
   const { leads, loading, error, deleteLead, updateLead, refetch } = useLeads();
   const [searchTerm, setSearchTerm] = useState('');
-  const [showAddModal, setShowAddModal] = useState(false);
   const [selectedLead, setSelectedLead] = useState(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
@@ -63,11 +65,6 @@ const AllLeads: React.FC = () => {
     return statusConfig[status as keyof typeof statusConfig] || statusConfig.pending;
   };
 
-  const handleAddLeadClick = () => {
-    // Check if URL has add=true parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    setShowAddModal(true);
-  };
 
   if (loading) {
     return (
@@ -101,8 +98,8 @@ const AllLeads: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between p-6 border-b border-[#2a2a2a]">
         <h1 className="text-2xl font-semibold text-white">All Leads</h1>
-        <button 
-          onClick={handleAddLeadClick}
+        <button
+          onClick={onOpenAddModal}
           className="flex items-center gap-2 px-4 py-2 bg-[#E11D48] hover:bg-[#BE185D] text-white rounded-lg transition-all duration-150 ease-out font-medium text-sm"
         >
           <Plus className="h-4 w-4" />
@@ -206,13 +203,6 @@ const AllLeads: React.FC = () => {
           <p className="text-[#9CA3AF]">No leads found matching your criteria</p>
         </div>
       )}
-
-      {/* Add Lead Modal */}
-      <AddLeadModal
-        isOpen={showAddModal}
-        onClose={() => setShowAddModal(false)}
-        onLeadAdded={refetch}
-      />
 
       {/* Lead Detail Modal */}
       <LeadDetailModal

@@ -13,6 +13,7 @@ interface SidebarProps {
   setActiveSection: (section: string) => void;
   isCollapsed: boolean;
   setIsCollapsed: (collapsed: boolean) => void;
+  onOpenAddModal: () => void;
 }
 
 const menuItems = [
@@ -22,11 +23,12 @@ const menuItems = [
   { id: 'meetings', label: 'Booked', icon: Calendar, count: '1' },
 ];
 
-const Sidebar: React.FC<SidebarProps> = ({ 
-  activeSection, 
-  setActiveSection, 
-  isCollapsed, 
-  setIsCollapsed 
+const Sidebar: React.FC<SidebarProps> = ({
+  activeSection,
+  setActiveSection,
+  isCollapsed,
+  setIsCollapsed,
+  onOpenAddModal
 }) => {
   return (
     <div className="w-64 bg-[#0F0F14] border-r border-[#2a2a2a] h-screen flex flex-col">
@@ -89,7 +91,10 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Add Lead Button */}
       <div className="p-4 border-t border-[#2a2a2a]">
-        <button className="w-full bg-[#E11D48] hover:bg-[#BE185D] text-white px-4 py-2.5 rounded-lg transition-all duration-150 ease-out flex items-center justify-center gap-2 text-sm font-medium">
+        <button
+          onClick={onOpenAddModal}
+          className="w-full bg-[#E11D48] hover:bg-[#BE185D] text-white px-4 py-2.5 rounded-lg transition-all duration-150 ease-out flex items-center justify-center gap-2 text-sm font-medium"
+        >
           <span className="text-lg">+</span>
           Add Lead
         </button>

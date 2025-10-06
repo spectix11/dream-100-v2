@@ -489,85 +489,21 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ isOpen, onClose, onLeadAdde
               <div className="bg-elevated rounded-2xl p-6 border border-white/5">
                 <h3 className="text-lg font-semibold text-text mb-4 flex items-center gap-2">
                   <Globe className="h-5 w-5 text-accent-red" />
-                  URLs & Links
+                  LinkedIn Profile
                 </h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-muted mb-2">
-                      LinkedIn Profile
-                    </label>
-                    <input
-                      {...register('lead_linkedin_url')}
-                      type="url"
-                      className="w-full px-4 py-3 bg-base border border-white/10 rounded-xl text-text placeholder-muted focus:outline-none focus:border-accent-red/50 focus:shadow-lg focus:shadow-accent-red/10 transition-all"
-                      placeholder="https://linkedin.com/in/johnsmith"
-                    />
-                    {errors.lead_linkedin_url && (
-                      <p className="text-accent-red text-sm mt-1">{errors.lead_linkedin_url.message}</p>
-                    )}
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-muted mb-2">
-                        Company LinkedIn
-                      </label>
-                      <input
-                        {...register('lead_company_linkedin_url')}
-                        type="url"
-                        className="w-full px-4 py-3 bg-base border border-white/10 rounded-xl text-text placeholder-muted focus:outline-none focus:border-accent-red/50 focus:shadow-lg focus:shadow-accent-red/10 transition-all"
-                        placeholder="https://linkedin.com/company/techcorp"
-                      />
-                      {errors.lead_company_linkedin_url && (
-                        <p className="text-accent-red text-sm mt-1">{errors.lead_company_linkedin_url.message}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-muted mb-2">
-                        Company Website
-                      </label>
-                      <input
-                        {...register('company_website')}
-                        type="url"
-                        className="w-full px-4 py-3 bg-base border border-white/10 rounded-xl text-text placeholder-muted focus:outline-none focus:border-accent-red/50 focus:shadow-lg focus:shadow-accent-red/10 transition-all"
-                        placeholder="https://techcorp.com"
-                      />
-                      {errors.company_website && (
-                        <p className="text-accent-red text-sm mt-1">{errors.company_website.message}</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Outreach Details */}
-              <div className="bg-elevated rounded-2xl p-6 border border-white/5">
-                <h3 className="text-lg font-semibold text-text mb-4 flex items-center gap-2">
-                  <MessageSquare className="h-5 w-5 text-accent-red" />
-                  Outreach Details
-                </h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-muted mb-2">
-                      Potential Services
-                    </label>
-                    <textarea
-                      {...register('potential_services')}
-                      rows={3}
-                      className="w-full px-4 py-3 bg-base border border-white/10 rounded-xl text-text placeholder-muted focus:outline-none focus:border-accent-red/50 focus:shadow-lg focus:shadow-accent-red/10 transition-all resize-none"
-                      placeholder="Web development, mobile apps, consulting services..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-muted mb-2">
-                      Connection Request Message
-                    </label>
-                    <textarea
-                      {...register('connection_request_message')}
-                      rows={3}
-                      className="w-full px-4 py-3 bg-base border border-white/10 rounded-xl text-text placeholder-muted focus:outline-none focus:border-accent-red/50 focus:shadow-lg focus:shadow-accent-red/10 transition-all resize-none"
-                      placeholder="Hi [Name], I'd love to connect and discuss..."
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm font-medium text-muted mb-2">
+                    LinkedIn Profile *
+                  </label>
+                  <input
+                    {...register('lead_linkedin_url')}
+                    type="url"
+                    className="w-full px-4 py-3 bg-base border border-white/10 rounded-xl text-text placeholder-muted focus:outline-none focus:border-accent-red/50 focus:shadow-lg focus:shadow-accent-red/10 transition-all"
+                    placeholder="https://linkedin.com/in/johnsmith"
+                  />
+                  {errors.lead_linkedin_url && (
+                    <p className="text-accent-red text-sm mt-1">{errors.lead_linkedin_url.message}</p>
+                  )}
                 </div>
               </div>
 

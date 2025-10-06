@@ -5,17 +5,19 @@ import Dashboard from './components/Dashboard';
 import AllLeads from './components/AllLeads';
 import ActiveCampaigns from './components/ActiveCampaigns';
 import BookedMeetings from './components/BookedMeetings';
+import AddLeadModal from './components/AddLeadModal';
 
 function App() {
   const [activeSection, setActiveSection] = useState('dashboard');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
 
   const renderActiveSection = () => {
     switch (activeSection) {
       case 'dashboard':
         return <Dashboard />;
       case 'all-leads':
-        return <AllLeads />;
+        return <AllLeads onOpenAddModal={() => setShowAddModal(true)} />;
       case 'active-campaigns':
         return <ActiveCampaigns />;
       case 'meetings':
@@ -33,6 +35,7 @@ function App() {
         setActiveSection={setActiveSection}
         isCollapsed={isSidebarCollapsed}
         setIsCollapsed={setIsSidebarCollapsed}
+        onOpenAddModal={() => setShowAddModal(true)}
       />
 
       {/* Main Content */}
@@ -46,6 +49,16 @@ function App() {
         toastOptions={{
           duration: 3000,
           style: { background: '#1a1a1a', color: '#e5e7eb', border: '1px solid rgba(255,255,255,0.1)' },
+        }}
+      />
+
+      {/* Add Lead Modal */}
+      <AddLeadModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onLeadAdded={() => {
+          // Refresh will happen automatically via the modal
+          setShowAddModal(false);
         }}
       />
     </div>
