@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, User, Building, Mail, Phone, Globe, Briefcase, MessageSquare, Upload } from 'lucide-react';
+import { X, User, Mail, Phone, Globe, Upload } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-hot-toast';
@@ -9,7 +9,7 @@ import { leadSchema, LeadFormData } from '../lib/validations';
 // Webhook function to trigger n8n workflow
 const triggerWebhook = async (leadData: any) => {
   try {
-    const webhookUrl = 'https://aigrowthcreators.app.n8n.cloud/webhook-test/55ee5a00-20b2-4f43-8fab-04f5840de655';
+    const webhookUrl = import.meta.env.VITE_ADD_LEAD_WEBHOOK_URL;
     
     const response = await fetch(webhookUrl, {
       method: 'POST',
@@ -415,36 +415,6 @@ const AddLeadModal: React.FC<AddLeadModalProps> = ({ isOpen, onClose, onLeadAdde
                       {...register('job_title')}
                       className="w-full px-4 py-3 bg-base border border-white/10 rounded-xl text-text placeholder-muted focus:outline-none focus:border-accent-red/50 focus:shadow-lg focus:shadow-accent-red/10 transition-all"
                       placeholder="CEO, CTO, VP of Engineering"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Company Information */}
-              <div className="bg-elevated rounded-2xl p-6 border border-white/5">
-                <h3 className="text-lg font-semibold text-text mb-4 flex items-center gap-2">
-                  <Building className="h-5 w-5 text-accent-red" />
-                  Company Information
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-muted mb-2">
-                      Company Name
-                    </label>
-                    <input
-                      {...register('lead_company_name')}
-                      className="w-full px-4 py-3 bg-base border border-white/10 rounded-xl text-text placeholder-muted focus:outline-none focus:border-accent-red/50 focus:shadow-lg focus:shadow-accent-red/10 transition-all"
-                      placeholder="TechCorp Inc."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-muted mb-2">
-                      Industry
-                    </label>
-                    <input
-                      {...register('industry')}
-                      className="w-full px-4 py-3 bg-base border border-white/10 rounded-xl text-text placeholder-muted focus:outline-none focus:border-accent-red/50 focus:shadow-lg focus:shadow-accent-red/10 transition-all"
-                      placeholder="Technology, Healthcare, Finance"
                     />
                   </div>
                 </div>

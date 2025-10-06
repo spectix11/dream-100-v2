@@ -9,7 +9,7 @@ import { leadSchema, LeadFormData } from '../lib/validations';
 // Webhook function to trigger n8n workflow for connection accepted
 const triggerConnectionWebhook = async (leadData: any) => {
   try {
-    const webhookUrl = 'https://aigrowthcreators.app.n8n.cloud/webhook-test/edc19b70-e5b1-40af-b628-adcdd3933be2';
+    const webhookUrl = import.meta.env.VITE_CONNECTION_ACCEPTED_WEBHOOK_URL;
     
     const response = await fetch(webhookUrl, {
       method: 'POST',
@@ -80,16 +80,10 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
     if (lead) {
       reset({
         lead_name: lead.lead_name || '',
-        lead_company_name: lead.lead_company_name || '',
         lead_email: lead.lead_email || '',
         lead_phone_number: lead.lead_phone_number || '',
         job_title: lead.job_title || '',
-        industry: lead.industry || '',
         lead_linkedin_url: lead.lead_linkedin_url || '',
-        lead_company_linkedin_url: lead.lead_company_linkedin_url || '',
-        company_website: lead.company_website || '',
-        potential_services: lead.potential_services || '',
-        connection_request_message: lead.connection_request_message || '',
       });
 
       // Initialize toggle states - NO RELATION to message fields
