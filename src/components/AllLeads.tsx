@@ -2,14 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useLeads } from '../hooks/useLeads';
 import { toast } from 'react-hot-toast';
 import LeadDetailModal from './LeadDetailModal';
-import { 
-  Search, 
-  Plus,
-  ExternalLink,
-  Edit,
-  Users,
-  Linkedin
-} from 'lucide-react';
+import { Search, Plus, ExternalLink, CreditCard as Edit, Users, Linkedin } from 'lucide-react';
 
 interface AllLeadsProps {
   onOpenAddModal: () => void;
