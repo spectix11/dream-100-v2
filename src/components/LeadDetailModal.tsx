@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabase';
-import { leadSchema, LeadFormData } from '../lib/validations';
+import { leadEditSchema, LeadEditFormData } from '../lib/validations';
 
 // Webhook function to trigger n8n workflow for connection accepted
 const triggerConnectionWebhook = async (leadData: any) => {
@@ -72,18 +72,24 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<LeadFormData>({
-    resolver: zodResolver(leadSchema),
+  } = useForm<LeadEditFormData>({
+    resolver: zodResolver(leadEditSchema),
   });
 
   useEffect(() => {
     if (lead) {
       reset({
         lead_name: lead.lead_name || '',
+        lead_company_name: lead.lead_company_name || '',
         lead_email: lead.lead_email || '',
         lead_phone_number: lead.lead_phone_number || '',
         job_title: lead.job_title || '',
+        industry: lead.industry || '',
         lead_linkedin_url: lead.lead_linkedin_url || '',
+        lead_company_linkedin_url: lead.lead_company_linkedin_url || '',
+        company_website: lead.company_website || '',
+        potential_services: lead.potential_services || '',
+        connection_request_message: lead.connection_request_message || '',
       });
 
       // Initialize toggle states - NO RELATION to message fields
@@ -175,7 +181,7 @@ const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
     }
   };
 
-  const onSubmit = async (data: LeadFormData) => {
+  const onSubmit = async (data: LeadEditFormData) => {
     if (!lead) return;
 
     setLoading(true);
