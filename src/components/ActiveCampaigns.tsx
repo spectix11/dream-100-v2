@@ -98,7 +98,7 @@ const ActiveCampaigns: React.FC = () => {
               </div>
               <div>
                 <p className="text-2xl font-bold text-text mb-1">
-                  {activeCampaignLeads.filter(l => l.dm_2).length}
+                  {activeCampaignLeads.filter(l => l.dm_2sent).length}
                 </p>
                 <p className="text-muted text-sm">DM2 Sent</p>
               </div>
@@ -112,7 +112,7 @@ const ActiveCampaigns: React.FC = () => {
               </div>
               <div>
                 <p className="text-2xl font-bold text-text mb-1">
-                  {activeCampaignLeads.filter(l => l.dm_3).length}
+                  {activeCampaignLeads.filter(l => l.dm_3sent).length}
                 </p>
                 <p className="text-muted text-sm">DM3 Sent</p>
               </div>
@@ -189,7 +189,7 @@ const ActiveCampaigns: React.FC = () => {
                       <td className="p-4 text-center">
                         <TogglePill
                           label="DM2"
-                          isOn={!!lead.dm_2}
+                          isOn={!!lead.dm_2sent}
                           onClick={(e) => handlePillClick(e, lead)}
                           disabled={!lead.dm_1sent}
                         />
@@ -197,9 +197,9 @@ const ActiveCampaigns: React.FC = () => {
                       <td className="p-4 text-center">
                         <TogglePill
                           label="DM3"
-                          isOn={!!lead.dm_3}
+                          isOn={!!lead.dm_3sent}
                           onClick={(e) => handlePillClick(e, lead)}
-                          disabled={!lead.dm_2}
+                          disabled={!lead.dm_2sent}
                         />
                       </td>
                       <td className="p-4 text-center">
