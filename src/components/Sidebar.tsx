@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onOpenAddModal
 }) => {
   return (
-    <div className="fixed left-0 top-0 w-64 bg-[#0F0F14] border-r border-[#2a2a2a] h-screen flex flex-col z-10">
+    <div className="w-64 bg-[#0F0F14] border-r border-[#2a2a2a] h-screen flex flex-col">
       {/* Header */}
       <div className="p-6 border-b border-[#2a2a2a]">
         <div className="flex items-center gap-3">
