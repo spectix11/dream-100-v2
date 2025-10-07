@@ -111,7 +111,6 @@ const Dashboard: React.FC = () => {
               <div className="p-3 bg-accent-red/10 rounded-2xl">
                 <MessageSquare className="h-6 w-6 text-accent-red" />
               </div>
-              <span className="text-muted text-sm">{replyRate.toFixed(0)}% reply rate</span>
             </div>
             <div>
               <p className="text-2xl font-bold text-text mb-1">{totalReplied}</p>
@@ -124,7 +123,6 @@ const Dashboard: React.FC = () => {
               <div className="p-3 bg-accent-red/10 rounded-2xl">
                 <Calendar className="h-6 w-6 text-accent-red" />
               </div>
-              <span className="text-[#10b981] text-sm">{conversionRate.toFixed(0)}% conversion</span>
             </div>
             <div>
               <p className="text-2xl font-bold text-text mb-1">{meetingsBooked}</p>
