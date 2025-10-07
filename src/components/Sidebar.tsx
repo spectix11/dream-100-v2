@@ -18,9 +18,9 @@ interface SidebarProps {
 
 const menuItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { id: 'all-leads', label: 'All Leads', icon: Users, count: '23' },
-  { id: 'active-campaigns', label: 'Active Campaigns', icon: Target, count: '20' },
-  { id: 'meetings', label: 'Booked', icon: Calendar, count: '1' },
+  { id: 'all-leads', label: 'All Leads', icon: Users },
+  { id: 'active-campaigns', label: 'Active Campaigns', icon: Target },
+  { id: 'meetings', label: 'Booked', icon: Calendar },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({
