@@ -36,18 +36,15 @@ const Sidebar: React.FC<SidebarProps> = ({
       <div className="p-6 border-b border-[#2a2a2a]">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-gradient-to-br from-[#E11D48] to-[#BE185D] rounded-xl flex items-center justify-center shadow-lg shadow-[#E11D48]/25 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl animate-pulse"></div>
-            <svg
-              viewBox="0 0 24 24"
-              className="w-5 h-5 text-white relative z-10"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
+            <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
+            <svg 
+              viewBox="0 0 24 24" 
+              className="w-5 h-5 text-white relative z-10" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2.5"
             >
-              <circle cx="12" cy="12" r="3" fill="currentColor" className="animate-ping" style={{animationDuration: '2s'}} />
-              <circle cx="12" cy="12" r="3" fill="currentColor" />
-              <path d="M12 2v4M12 18v4M22 12h-4M6 12H2" strokeLinecap="round" />
-              <path d="M19 5l-2.8 2.8M7.8 16.2L5 19M19 19l-2.8-2.8M7.8 7.8L5 5" strokeLinecap="round" className="animate-spin" style={{transformOrigin: 'center', animationDuration: '8s'}} />
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
           </div>
           <h1 className="text-xl font-semibold text-white">Dream 100</h1>
